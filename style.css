@@ -1,0 +1,26 @@
+/* Body */
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+/* Calculator body */
+
+#calculator {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+}
+
+/* Number buttons */
+
+.buttons {
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1;
+
+}
