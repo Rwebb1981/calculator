@@ -51,3 +51,69 @@ function operate (operator, num1, num2) {
 
 console.log(operate('+', 5, 3));
 console.log(operate('*', 4, 2));
+
+// Selecting the display elements
+const operationDisplay = document.querySelector(".operation"); 
+const outputDisplay = document.querySelector(".output"); 
+
+// Selecting the buttons container correctly
+const buttonsContainer = document.querySelector(".buttons");
+
+// Listen for clicks on the buttons
+buttonsContainer.addEventListener("click", function (event) {
+    const target = event.target;
+
+    // If a number button is clicked
+    if (target.classList.contains("numberbtn")) {
+        appendToOperation(target.textContent);
+    }
+
+    // If an operator button is clicked
+    if (target.classList.contains("operationbtn")) {
+        appendToOperation(target.textContent);
+    }
+
+    // If the equals button is clicked
+    if (target.classList.contains("equalsbtn")) {
+        calculateResult();
+    }
+});
+
+// Function to append numbers and operators to the operation display
+function appendToOperation(value) {
+    if (operationDisplay.textContent === "0") {
+        operationDisplay.textContent = value; // Replace the initial "0"
+    } else {
+        operationDisplay.textContent += value;
+    }
+}
+
+// Function to evaluate the expression manually
+function calculateResult() {
+    const expression = operationDisplay.textContent;
+    let result;
+    
+    // Check if there's an operator present
+    if (expression.includes('+')) {
+        const parts = expression.split('+');
+        result = operate('+', parseFloat(parts[0]), parseFloat(parts[1]));
+    } else if (expression.includes('-')) {
+        const parts = expression.split('-');
+        result = operate('-', parseFloat(parts[0]), parseFloat(parts[1]));
+    } else if (expression.includes('*')) {
+        const parts = expression.split('*');
+        result = operate('*', parseFloat(parts[0]), parseFloat(parts[1]));
+    } else if (expression.includes('/')) {
+        const parts = expression.split('/');
+        result = operate('/', parseFloat(parts[0]), parseFloat(parts[1]));
+    }
+
+    // Display the result
+    outputDisplay.textContent = result !== undefined ? result : "Error";
+}
+
+// Function to clear both displays when "AC" is clicked
+document.querySelector(".acbtn").addEventListener("click", function () {
+    operationDisplay.textContent = "0";
+    outputDisplay.textContent = "0";
+});
